@@ -48,9 +48,25 @@ ini_set('display_errors', 1);
             height: 90px;
             border-radius: 15px;
         }
+
+        .form-control {
+            background-color: #ffffff;
+            color: #212529;
+        }
+
+        .form-control:focus {
+            background-color: #ffffff;
+            color: #212529;
+        }
+
+        input:focus {
+            background-color: #ffffff;
+            color: #212529;
+        }
     </style>
 
     <link href="../vendor/datatables/datatables.min.css" rel="stylesheet">
+    <link href="../vendor/datatables/Buttons-2.4.2/buttons.dataTables.min.css" rel="stylesheet">
 </head>
 
 <body>

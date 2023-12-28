@@ -41,14 +41,18 @@
 <!-- Custom js for this page -->
 <script src="../assets/js/dashboard.js"></script>
 
-
-
 <script src="../vendor/datatables/datatables.min.js"></script>
+<script src="../vendor/datatables/Buttons-2.4.2/buttons.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#datatable').DataTable();
+        $('#datatable').DataTable({
+            buttons: [
+                'copy', 'excel', 'pdf'
+            ]
+        });
     });
 </script>
+
 
 <!-- End custom js for this page -->
 </body>
