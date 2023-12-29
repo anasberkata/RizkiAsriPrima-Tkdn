@@ -17,6 +17,17 @@ $dkb = query(
     INNER JOIN produsen ON bahan_baku.produsen_id = produsen.id_produsen
     WHERE produk_id = $id_produk
     ");
+
+$kdn_amount = query(
+    "SELECT SUM(kdn) AS amount_kdn FROM dkb WHERE produk_id = $id_produk"
+)[0];
+$kln_amount = query(
+    "SELECT SUM(kln) AS amount_kln FROM dkb WHERE produk_id = $id_produk"
+)[0];
+$total_amount = query(
+    "SELECT SUM(total) AS amount_total FROM dkb WHERE produk_id = $id_produk"
+)[0];
+
 ?>
 
 
@@ -24,24 +35,38 @@ $dkb = query(
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex flex-row justify-content-between">
-                    <h4 class="card-title">Input Daftar Kebutuhan Bahan : <br>
-                        Produk :
-                        <?= $p["nama_produk"]; ?> |
-                        Tanggal :
-                        <?= $p["tanggal"]; ?> |
-                        Penanggung Jawab :
-                        <?= $p["nama"]; ?>
-                    </h4>
-                    <p class="text-muted">
-                        <a href="dkb_add.php?id_produk=<?= $id_produk; ?>" class="btn btn-primary text-white">
-                            <i class="mdi mdi-plus"></i> Tambah Bahan Baku
-                        </a>
-                    </p>
+                <div class="d-flex row mb-3">
+                    <div class="col-12 col-md-8">
+                        <h4 class="card-title">Input Daftar Kebutuhan Bahan : <br>
+                            Produk :
+                            <?= $p["nama_produk"]; ?> |
+                            Tanggal :
+                            <?= $p["tanggal"]; ?> |
+                            Penanggung Jawab :
+                            <?= $p["nama"]; ?>
+                        </h4>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="btn-group w-100">
+                            <a href="dkb_add.php?id_produk=<?= $id_produk; ?>" class="btn btn-primary text-white">
+                                <i class="mdi mdi-plus"></i> Tambah
+                            </a>
+                            <a href="dkb_print.php?id_produk=<?= $id_produk; ?>" class="btn btn-warning text-white"
+                                target="_blank">
+                                <i class="mdi mdi-printer"></i> Print
+                            </a>
+                            <a href="dkb_download.php?id_produk=<?= $id_produk; ?>" class="btn btn-success text-white"
+                                target="_blank">
+                                <i class="mdi mdi-download"></i> Download
+                            </a>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered text-white" id="datatable">
+                    <table class="table table-bordered text-white">
                         <thead>
                             <tr>
                                 <th rowspan="2" class="text-center"> # </th>
@@ -61,6 +86,18 @@ $dkb = query(
                                 <th> KDN </th>
                                 <th> KLN </th>
                                 <th> Total </th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">(1)</th>
+                                <th class="text-center">(2)</th>
+                                <th class="text-center">(3)</th>
+                                <th class="text-center">(4)</th>
+                                <th class="text-center">(5)</th>
+                                <th class="text-center">(6)</th>
+                                <th class="text-center">(7)</th>
+                                <th class="text-center">(8)</th>
+                                <th class="text-center">(9)</th>
+                                <th class="text-center" colspan="3">(10)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,7 +145,7 @@ $dkb = query(
                                         <?= $d["total"]; ?>
                                     </td>
                                     <td>
-                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                        <div class=" btn-group btn-group-toggle" data-toggle="buttons">
                                             <a href="dkb_edit.php?id_dkb=<?= $d["id_dkb"] ?>&id_produk=<?= $id_produk; ?>"
                                                 class="btn btn-info text-white mt-1"><i
                                                     class="mdi mdi-circle-edit-outline"></i></a>
@@ -121,6 +158,24 @@ $dkb = query(
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
+
+                            <tr>
+                                <td colspan="9" class="text-right">Total</td>
+                                <td>
+                                    Rp.
+                                    <?= $kdn_amount["amount_kdn"]; ?>
+                                </td>
+                                <td>
+                                    Rp.
+                                    <?= $kln_amount["amount_kln"]; ?>
+                                </td>
+                                <td>
+                                    Rp.
+                                    <?= $total_amount["amount_total"]; ?>
+                                </td>
+                                <td></td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
