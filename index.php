@@ -30,11 +30,11 @@ include "templates/auth-header.php";
             <form action="cek_login.php" method="POST">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control p_input" name="username">
+                <input type="text" class="form-control p_input" name="username" placeholder="Username">
               </div>
               <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control p_input" name="password">
+                <input type="password" class="form-control p_input" name="password" placeholder="Password">
               </div>
               <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
