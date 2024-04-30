@@ -7,7 +7,8 @@ $users = query(
     "SELECT * FROM users
     INNER JOIN users_role ON users.role_id = users_role.id_role
     WHERE role_id = 3
-    ");
+    "
+);
 ?>
 
 
@@ -30,8 +31,7 @@ $users = query(
                             <tr>
                                 <th> # </th>
                                 <th> Nama </th>
-                                <th> Email </th>
-                                <th> Username </th>
+                                <th> NIK </th>
                                 <th> Opsi </th>
                             </tr>
                         </thead>
@@ -46,10 +46,7 @@ $users = query(
                                         <?= $u["nama"]; ?>
                                     </td>
                                     <td>
-                                        <?= $u["email"]; ?>
-                                    </td>
-                                    <td>
-                                        <?= $u["username"]; ?>
+                                        <?= $u["nik"]; ?>
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">

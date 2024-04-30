@@ -8,7 +8,8 @@ $id_produk = $_GET["id_produk"];
 $bahan_baku = query(
     "SELECT * FROM bahan_baku
     INNER JOIN produsen ON bahan_baku.produsen_id = produsen.id_produsen
-    ");
+    "
+);
 
 if (isset($_POST["add_dkb"])) {
 

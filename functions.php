@@ -25,12 +25,14 @@ function profile_edit($data)
 
     $id_user = $data["id_user"];
     $nama = $data["nama"];
+    $nik = $data["nik"];
     $email = $data["email"];
     $username = $data["username"];
     $password = $data["password"];
 
     $query = "UPDATE users SET
 			nama = '$nama',
+			nik = '$nik',
 			email = '$email',
 			username = '$username',
 			password = '$password'
@@ -52,6 +54,7 @@ function pengguna_add($data)
     global $conn;
 
     $nama = $data["nama"];
+    $nik = $data["nik"];
     $email = $data["email"];
     $username = $data["username"];
     $password = $data["password"];
@@ -76,7 +79,7 @@ function pengguna_add($data)
     } else {
         $query = "INSERT INTO users
 				VALUES
-			(NULL, '$nama','$email', '$username', '$password', '$image', '$role_id')
+			(NULL, '$nama', '$nik', '$email', '$username', '$password', '$image', '$role_id')
 			";
 
         mysqli_query($conn, $query);
@@ -91,6 +94,7 @@ function pengguna_edit($data)
 
     $id_user = $data["id_user"];
     $nama = $data["nama"];
+    $nik = $data["nik"];
     $email = $data["email"];
     $username = $data["username"];
     $password = $data["password"];
@@ -98,6 +102,8 @@ function pengguna_edit($data)
 
     $query = "UPDATE users SET
 			nama = '$nama',
+			nik = '$nik',
+			email = '$email',
 			email = '$email',
 			username = '$username',
 			password = '$password',
@@ -321,6 +327,7 @@ function dkb_add($data)
     $produk_id = $data["produk_id"];
     $bahan_baku_id = $data["bahan_baku_id"];
     $tkdn = $data["tkdn"];
+
     $qty_pemakaian = $data["qty_pemakaian"];
 
     $dbb_result = mysqli_query($conn, "SELECT * FROM bahan_baku WHERE id_bahan_baku = '$bahan_baku_id'");
@@ -330,12 +337,20 @@ function dkb_add($data)
     $kln = (1 - ($tkdn / 100)) * $qty_pemakaian * $dbb["harga_satuan"];
     $total = $kdn + $kln;
 
-    $query = "INSERT INTO dkb
+    // Cek nilai TKDN jika bernilai minus
+    if ($tkdn < 0) {
+        echo "<script>
+            alert('Nilai TKDN tidak boleh di bawah NOL!');
+            document.location.href = 'dkb_add.php?id_produk=$produk_id';
+            </script>";
+    } else {
+        $query = "INSERT INTO dkb
                 VALUES 
                 (NULL, '$bahan_baku_id', '$tkdn', '$qty_pemakaian', '$kdn', '$kln', '$total', '$produk_id')
             ";
 
-    mysqli_query($conn, $query);
+        mysqli_query($conn, $query);
+    }
 
     return mysqli_affected_rows($conn);
 }
@@ -348,6 +363,7 @@ function dkb_edit($data)
     $produk_id = $data["produk_id"];
     $bahan_baku_id = $data["bahan_baku_id"];
     $tkdn = $data["tkdn"];
+
     $qty_pemakaian = $data["qty_pemakaian"];
 
     $dbb_result = mysqli_query($conn, "SELECT * FROM bahan_baku WHERE id_bahan_baku = '$bahan_baku_id'");
@@ -357,7 +373,14 @@ function dkb_edit($data)
     $kln = (1 - ($tkdn / 100)) * $qty_pemakaian * $dbb["harga_satuan"];
     $total = $kdn + $kln;
 
-    $query = "UPDATE dkb SET
+    // Cek nilai TKDN jika bernilai minus
+    if ($tkdn < 0) {
+        echo "<script>
+            alert('Nilai TKDN tidak boleh di bawah NOL!');
+            document.location.href = 'dkb_edit.php?id_dkb=$id_dkb&id_produk=$produk_id';
+            </script>";
+    } else {
+        $query = "UPDATE dkb SET
 			bahan_baku_id = '$bahan_baku_id',
 			tkdn = '$tkdn',
 			qty_pemakaian = '$qty_pemakaian',
@@ -369,10 +392,13 @@ function dkb_edit($data)
             WHERE id_dkb = $id_dkb
 			";
 
-    mysqli_query(
-        $conn,
-        $query
-    );
+        mysqli_query(
+            $conn,
+            $query
+        );
+    }
+
+
 
     return mysqli_affected_rows($conn);
 }

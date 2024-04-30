@@ -34,6 +34,13 @@ if (isset($_POST["add_user"])) {
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="nik" class="col-sm-3 col-form-label">NIK</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nik" name="nik"
+                                placeholder="Nomor Induk Kependudukan">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="email" class="col-sm-3 col-form-label">Email</label>
                         <div class="col-sm-9">
                             <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail">

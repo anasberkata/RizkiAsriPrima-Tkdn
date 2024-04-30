@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 29 Des 2023 pada 14.15
+-- Waktu pembuatan: 30 Apr 2024 pada 05.47
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -67,7 +67,6 @@ CREATE TABLE `dkb` (
 --
 
 INSERT INTO `dkb` (`id_dkb`, `bahan_baku_id`, `tkdn`, `qty_pemakaian`, `kdn`, `kln`, `total`, `produk_id`) VALUES
-(1, 1, 0, 0.01, 0, 450, 450, 1),
 (2, 2, 75, 0.5, 187.5, 62.5, 250, 1);
 
 -- --------------------------------------------------------
@@ -120,6 +119,7 @@ INSERT INTO `produsen` (`id_produsen`, `nama_produsen`, `alamat`, `negara`, `pho
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
+  `nik` varchar(128) NOT NULL,
   `email` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -131,10 +131,10 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id_user`, `nama`, `email`, `username`, `password`, `image`, `role_id`) VALUES
-(1, 'Admin TKDN', 'admin@gmail.com', 'admin', 'admin', 'avatar-default.jpg', 1),
-(2, 'Petugas', 'petugas@gmail.com', 'petugas', 'petugas', 'avatar-default.jpg', 2),
-(3, 'Karyawan', 'karyawan@gmail.com', 'karyawan', 'karyawan', 'avatar-default.jpg', 3);
+INSERT INTO `users` (`id_user`, `nama`, `nik`, `email`, `username`, `password`, `image`, `role_id`) VALUES
+(1, 'Admin TKDN', '32030502903902910', 'admin@gmail.com', 'admin', 'admin', 'avatar-default.jpg', 1),
+(2, 'Petugas', '32030502903902345', 'petugas@gmail.com', 'petugas', 'petugas', 'avatar-default.jpg', 2),
+(3, 'Karyawan', '32030502903123569', 'karyawan@gmail.com', 'karyawan', 'karyawan', 'avatar-default.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -210,7 +210,7 @@ ALTER TABLE `bahan_baku`
 -- AUTO_INCREMENT untuk tabel `dkb`
 --
 ALTER TABLE `dkb`
-  MODIFY `id_dkb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_dkb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`
